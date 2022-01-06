@@ -21,7 +21,7 @@
 
 library(rvest)
 library(RSelenium)
-library(tidyverse)
+library(tidyverse, warn.conflicts = FALSE)
 
 # ##### Define Global Variables
 
