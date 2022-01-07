@@ -47,7 +47,7 @@ rd$server$stop
 # ##### Close browser session in the backend
 
 system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
-pingr::ping_port("localhost", 4572)
+pingr::ping_port("localhost", 4573)
 
 # ##### View extracted data
 
@@ -61,7 +61,7 @@ report_date <- all_data %>%
 report_date_cleaned <- str_extract(report_date, "(as on : .*,)")
 report_date_cleaned <- sub(",", "", strsplit(report_date_cleaned, ": ")[[1]][2])
 report_date_cleaned <- as.Date(report_date_cleaned, format = "%d %B %Y")
-report_date_cleaned
+print(report_date_cleaned)
 
 # ##### Get States Data
 
