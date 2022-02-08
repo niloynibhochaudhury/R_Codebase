@@ -96,6 +96,8 @@ str(lc)
 
 lc$Gender <- factor(lc$Gender)
 
+lc$Smoke <- factor(lc$Smoke)
+
 str(lc)
 
 ?barplot
@@ -111,10 +113,16 @@ per <- table(lc$Gender) / 725
 
 per
 
-par(mfrow = c(1, 1))
+par(mfrow = c(1, 2))
 barplot(cnt)
 
-barplot(per)
+barplot(per, main = "Male/Female Ratio", xlab = "Gender", ylab = "Percent", las = 1,
+        names.arg = c("Female", "Male"), horiz = TRUE)
+
+par(mfrow = 1)
+pie(per)
+
+box(lty = '1373', col = 'red')
 
 par(mfrow = c(1, 2))
 barplot(cnt, 
@@ -128,4 +136,32 @@ barplot(per,
 
 library(help = "datasets")
 
-par()
+par(mfrow = c(1, 1))
+
+table1 <- table(lc$Smoke, lc$Gender)
+table1
+
+barplot(table1, beside = TRUE, las = 1, col = c(2, 4), legend.text = c("Non-Smoke", "Smoke"),
+        main = "Gender vs Smoker Info", xlab = "Gender")
+
+mosaicplot(table1, col = c(2, 4))
+
+counts <- table(mtcars$vs, mtcars$carb)
+counts
+barplot(counts, main="Car Distribution by Count of V-shaped engine and Carb",
+        xlab="Number of Carb", ylab="Count of cars", col=c("Yellow","red"),
+        legend = c("Not vs","vs"))
+
+counts <- table(mtcars$vs, mtcars$carb)
+barplot(counts, main="Car Distribution by Count of V-shaped engine and Carb",  xlab="Number of Carb",
+        ylab="Count of cars", col=c("Yellow","red"), legend = c("Not vs","vs"), beside=TRUE)
+
+boxplot(lc$`LungCap(cc)`, main = "Lung Capqacity (in cc)", las = 1, ylim = c(0, 16))
+
+boxplot(lc$`LungCap(cc)` ~ lc$Gender, main = "Lung Capqacity (in cc) by Gender", las = 1,
+         ylim = c(0, 16), ylab = "Lung Capacity", xlab = "Gender",
+        col = c("orange", "red"), legend = TRUE)
+
+?boxplot
+
+quantile(lc$`LungCap(cc)`)
