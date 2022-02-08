@@ -153,8 +153,11 @@ barplot(counts, main="Car Distribution by Count of V-shaped engine and Carb",
         legend = c("Not vs","vs"))
 
 counts <- table(mtcars$vs, mtcars$carb)
-barplot(counts, main="Car Distribution by Count of V-shaped engine and Carb",  xlab="Number of Carb",
-        ylab="Count of cars", col=c("Yellow","red"), legend = c("Not vs","vs"), beside=TRUE)
+my_bar <- barplot(counts, main="Car Distribution by Count of V-shaped engine and Carb",  xlab="Number of Carb",
+                  ylab="Count of cars", ylim = c(0, 10), col=c("Yellow","red"), legend = c("Not vs","vs"), beside=TRUE,
+                  las = 1)
+
+text(my_bar, counts+0.1 , paste0("n: ", counts) ,cex=1)
 
 boxplot(lc$`LungCap(cc)`, main = "Lung Capqacity (in cc)", las = 1, ylim = c(0, 16))
 
@@ -162,6 +165,47 @@ boxplot(lc$`LungCap(cc)` ~ lc$Gender, main = "Lung Capqacity (in cc) by Gender",
          ylim = c(0, 16), ylab = "Lung Capacity", xlab = "Gender",
         col = c("orange", "red"), legend = TRUE)
 
+boxplot(lc$`LungCap(cc)`[lc$Gender == "female"], lc$`LungCap(cc)`[lc$Gender == "male"])
+
 ?boxplot
 
 quantile(lc$`LungCap(cc)`)
+
+lc$agegroup <- cut(lc$`Age( years)`, breaks = c(0, 13, 15, 17 , 25), labels = c("<13", "14/15", "16/17", "18+"))
+
+lc$`Age( years)`[1:5]
+
+lc$agegroup[1:5]
+
+levels(lc$agegroup)
+
+boxplot(`LungCap(cc)`~Smoke, data = lc, las=1)
+
+boxplot(lc$`LungCap(cc)`[lc$`Age( years)`>=18]~lc$Smoke[lc$`Age( years)`>=18], las=1)
+
+options(repr.plot.width=15, repr.plot.height=8)
+
+boxplot(`LungCap(cc)`~Smoke*agegroup, data = lc, las=2, col = c(4, 2), legend.text = c("Non-Smoker", "Smoker"),
+        ylim = c(0, 15))
+
+box()
+
+# Important reference here is if in notched boxplot,
+# if two boxes notches do not overlap this is strong evidence their medians differ.
+boxplot(len~supp*dose, data=ToothGrowth, notch=TRUE, col=(c("darkblue","darkgreen")),
+        main="Tooth Growth", xlab="Supplement & Dose", las=1)
+
+cor(lc$`Age( years)`, lc$`Height(inches)`)
+# [1] 0.8357368
+
+plot(lc$`Age( years)`, lc$`Height(inches)`, las = 1,
+     xlab = "Age in Years", ylab = "Height in inches")
+
+abline(lm(lc$`Height(inches)`~lc$`Age( years)`), lty = 1, lwd = 1, col = "darkgreen")
+
+lines(smooth.spline(lc$`Age( years)`, lc$`Height(inches)`), lty = 2, lwd = 5, col = "red")
+
+# You can create scatter plot matrices using the parameters
+pairs(~mpg+disp+drat+wt,data=mtcars, main="Scatterplot Matrix", col="red")
+
+
