@@ -64,4 +64,11 @@ histogram(~ozone | wind.cut, data = environmental)
 
 histogram(~ozone | wind.cut * tmp.cut, data = environmental)
 
+uk2007 <- data.frame("Commodity" = factor(c("Cow Milk", "Wheat", "Sugar Beet", "Potatoes", "Barley"),
+                                          levels = c("Cow Milk", "Wheat", "Sugar Beet", "Potatoes", "Barley")),
+                     "Production" = c(14023, 13221, 6500, 5635, 5079))
+
+barchart(Production ~ Commodity, data = uk2007, main = "UK Argicultural Production",
+         xlab = "Commodity", ylab = "Production", cex.axis = 2)
+
 
