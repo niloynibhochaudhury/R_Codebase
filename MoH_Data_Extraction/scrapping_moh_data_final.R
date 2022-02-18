@@ -40,7 +40,7 @@ state_data_headers <-
 # ##### Open pseudo-browser session
 
 # rd <- rsDriver(port = 4573L, browser = "chrome", chromever = "96.0.4664.45", verbose = FALSE)
-rd <- rsDriver(port = 4573L, browser = "chrome", chromever = "97.0.4692.36", verbose = FALSE)
+rd <- rsDriver(port = 4574L, browser = "chrome", chromever = "97.0.4692.36", verbose = FALSE)
 remDr <- rd[["client"]]
 remDr$navigate(url)
 # remDr$click("#state-data")
@@ -52,7 +52,7 @@ rd$server$stop
 # ##### Close browser session in the back-end
 
 system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
-pingr::ping_port("localhost", 4573)
+pingr::ping_port("localhost", 4574)
 
 # ##### View extracted data
 
